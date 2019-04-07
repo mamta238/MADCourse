@@ -37,3 +37,53 @@ Part 3)
     3) Spawn go routines representing every cashier and the cashier will get the hold of customer 
        through index which will be global and critical to update
     4) Select over various receiving channels
+
+
+General code layout:
+
+package main
+
+import ( "fmt"
+		"time"
+		"sync")
+
+index := 0 
+
+func main()
+{
+	noOfcashiers := 3
+	noOfCustomers := 100
+	timePerCustomer := 2
+
+	customerService := make(chan string,noOfCashier)
+
+	var m sync.Mutex()
+
+	for i:=0 ; i < noOfCashiers ; i++{
+		go func(){
+			for {
+				if(index<noOfcustomers){
+					fmt.Printf("Cashier %d serving customer %d",i,index)
+					time.Sleep(timePerSecond * time.Second)
+					customerService <- "Cashier " + string(i) + "completed customer "index
+					m.Lock()
+					index+=1
+					m.Unlock()
+					
+				 } else{
+					 break
+				 }
+
+
+			}
+		}()
+}
+
+	msg := '' 
+
+	for j :=0 ; j<noOfCustomers ; j++{
+		select{
+		case msg = <- customerService : fmt.Println(msg)
+		}
+	} 
+}
