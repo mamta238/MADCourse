@@ -1,0 +1,39 @@
+-- Write Up --
+
+Part 1)
+
+1)  Data Structure : 
+    Customers : A Slice for representing Customers
+    Cashiers : Just a variable representing number of cashiers to spawn go routines accordingly
+    
+
+2)  Variables: noOfCashiers (int)
+               noOfCustomers (int)
+               timePerCustomer (int)
+               Index (int) to keep a track on current customer
+
+
+3) Concepts of Go in usage:
+                1)Mutex as index will be critical section
+                2) Go routines to achieve parallel working of cashiers
+                3) Channel assocaited to each cashier to communicate work done
+
+
+Part 2)
+
+    Struct : struct BankSim{
+            noOfCashiers (int)
+            noOfCustomers (int)
+            timePerCustomer (int)
+            Customers ([]int, noOfCustomers)
+    } 
+
+Part 3)
+    Psuedocode:
+
+
+    1) Accept no of cashiers,customers,timePerCustomer
+    2) Initialize BankSim struct and create 
+    3) Spawn go routines representing every cashier and the cashier will get the hold of customer 
+       through index which will be global and critical to update
+    4) Select over various receiving channels
